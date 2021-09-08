@@ -1,34 +1,13 @@
 <template>
   <div class="container">
     <div class="chat-area">
-      <span class="bubble me">
-        Text 1
-      </span>
-      <span class="bubble other">
-        Text 2
-      </span>
-      <span class="bubble me">
-        Text 3 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt magnam exercitationem asperiores aliquid cupiditate, alias odio hic facere reiciendis voluptas at, libero quos vel non iste amet, aspernatur perspiciatis unde!
-      </span>
-      <span class="bubble other">
-        Text 4 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et laudantium animi perferendis temporibus quod expedita dolor quae harum iusto molestias, sapiente ab doloremque inventore quasi. Modi vitae porro cupiditate suscipit.
-      </span>
-      <span class="bubble me">
-        Text 5
-      </span>
-      <span class="bubble other">
-        Text 6
-      </span>
-      <span class="bubble me">
-        Text 7
-      </span>
-      <span class="bubble other">
-        Text 8
+      <span v-for="item in receivedMessages" :key="item.key" :class="['bubble', item.type]">
+        {{ item.text }}
       </span>
     </div>
     <div class="control">
-      <textarea v-model="msg" name="" rows="4" placeholder="Type Message Here..." />
-      <button id="sendBtn" type="button">
+      <textarea v-model="msg" name="" rows="4" placeholder="Type Message Here..." @keydown.prevent.enter="sendMessage()" />
+      <button id="sendBtn" type="button" @click="sendMessage()">
         SEND
       </button>
     </div>
@@ -38,11 +17,20 @@
 export default {
   data () {
     return {
+      msg: '',
+      receivedMessages: []
     }
   },
   mounted () {
   },
   methods: {
+    sendMessage () {
+      this.receivedMessages.push({
+        text: this.msg,
+        type: 'me'
+      })
+      this.msg = ''
+    }
   }
 }
 </script>
