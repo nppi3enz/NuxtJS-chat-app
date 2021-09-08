@@ -4,7 +4,7 @@
       <h1>Nuxt.js Chat Demo</h1>
     </header>
     <main>
-      <AblyChatComponent />
+      <AblyChat />
     </main>
     <footer>
       Powered by
