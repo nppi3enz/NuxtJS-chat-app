@@ -19,52 +19,7 @@ export default {
   data () {
     return {
       msg: '',
-      receivedMessages: [
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test',
-          type: 'me'
-        },
-        {
-          text: 'test123213',
-          type: 'me'
-        }
-      ],
+      receivedMessages: [],
       channel: null,
       connectionId: null
     }
