@@ -14,14 +14,21 @@
   </div>
 </template>
 <script>
+import Ably from 'ably/promises'
 export default {
   data () {
     return {
       msg: '',
-      receivedMessages: []
+      receivedMessages: [],
+      channel: null
     }
   },
   mounted () {
+    const ably = new Ably.Realtime.Promise({ authUrl: '/api/createTokenRequest' })
+    ably.connection.on('connected', function () {
+      console.log('successful connection')
+    })
+    this.channel = ably.channels.get('chat-demo')
   },
   methods: {
     sendMessage () {
