@@ -20,23 +20,33 @@ export default {
     return {
       msg: '',
       receivedMessages: [],
-      channel: null
+      channel: null,
+      connectionId: null
     }
   },
   mounted () {
+    const self = this
     const ably = new Ably.Realtime.Promise({ authUrl: '/api/createTokenRequest' })
     ably.connection.on('connected', function () {
+      self.connectionId = ably.connection.id
       console.log('successful connection')
     })
     this.channel = ably.channels.get('chat-demo')
+    this.channel.subscribe('chat-message', function (message) {
+      self.callbackOnMessage(message)
+    })
   },
   methods: {
     sendMessage () {
-      this.receivedMessages.push({
-        text: this.msg,
-        type: 'me'
-      })
+      this.channel.publish('chat-message', { msg: this.msg })
       this.msg = ''
+    },
+    callbackOnMessage (message) {
+      const author = message.connectionId === this.connectionId ? 'me' : 'other'
+      this.receivedMessages.push({
+        text: message.data.msg,
+        type: author
+      })
     }
   }
 }
