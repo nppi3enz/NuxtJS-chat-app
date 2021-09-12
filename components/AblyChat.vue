@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="chat-area">
-      <span v-for="item in receivedMessages" :key="item.key" :class="['bubble', item.type]">
+    <div id="chat-area">
+      <span v-for="(item, key) in receivedMessages" :key="key" :class="['bubble', item.type]">
         {{ item.text }}
       </span>
     </div>
@@ -19,7 +19,52 @@ export default {
   data () {
     return {
       msg: '',
-      receivedMessages: [],
+      receivedMessages: [
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test',
+          type: 'me'
+        },
+        {
+          text: 'test123213',
+          type: 'me'
+        }
+      ],
       channel: null,
       connectionId: null
     }
@@ -41,12 +86,14 @@ export default {
       this.channel.publish('chat-message', { msg: this.msg })
       this.msg = ''
     },
-    callbackOnMessage (message) {
+    async callbackOnMessage (message) {
       const author = message.connectionId === this.connectionId ? 'me' : 'other'
-      this.receivedMessages.push({
+      await this.receivedMessages.push({
         text: message.data.msg,
         type: author
       })
+      const container = this.$el.querySelector('#chat-area')
+      container.scrollTop = container.scrollHeight
     }
   }
 }
@@ -61,7 +108,7 @@ export default {
   max-width: 800px;
   margin-bottom: 10px;
 }
-.chat-area{
+#chat-area{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
